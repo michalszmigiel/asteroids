@@ -6,8 +6,13 @@ from player import *
 def main():
     pygame.init()
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+
     player = Player(x, y)
 
     clock = pygame.time.Clock()
@@ -19,9 +24,14 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        player.update(delta)
+        for updatable_object in updatable:
+            updatable_object.update(delta)
+
         screen.fill('black')
-        player.draw(screen)
+
+        for drawable_objects in drawable:
+            drawable_objects.draw(screen)
+
         pygame.display.flip()
 
         time_passed = clock.tick(60)
