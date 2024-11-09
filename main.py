@@ -19,6 +19,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        player.update(delta)
         screen.fill('black')
         player.draw(screen)
         pygame.display.flip()
